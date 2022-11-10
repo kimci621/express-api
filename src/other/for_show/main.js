@@ -1,6 +1,3 @@
-//app это express() 
-//тут основные фичи express
-
 //midleware промежутечный запрос, которые при помощи метода next может вызвать следующий запрос или не вызвать ничего вовсе,
 //будет слушать все запросы на указанный url
 app.all("/get_names", (req, res, next) => {
@@ -86,4 +83,15 @@ app.patch("/patch_names", (req, res) => {
 });
 app.delete("/delete_names", (req, res) => {
   res.send("hello express!");
+});
+
+//можно так же слушать один основной url и его вложенности
+app.use("/hello", (req, res, next) => {
+  console.log("Hello url, запрос был сделан в ", Date.now());
+  next();
+});
+app.get("/hello", (req, res) => {
+  //res.send("Hello from express!");
+  //для теста ошибки
+  throw new Error("Это просто ошибка, не обращай внимания и иди дальше...");
 });
